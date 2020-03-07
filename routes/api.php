@@ -17,4 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/country','Country@Country');
+Route::Resource('/product','ProductController');
+
+Route::Group(['prefix'=>'product'],function(){
+    Route::apiResource('/{product}/Review','ReviewController');
+});
+
