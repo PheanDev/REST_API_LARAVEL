@@ -6,6 +6,7 @@ use App\Model\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\Product\ProductResource as ProductResource;
 
+
 class ProductController extends Controller
 {
     /**
@@ -13,9 +14,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        
+       return ProductResource::collection(Product::all());
     }
 
     /**
