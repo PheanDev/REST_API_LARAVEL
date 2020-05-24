@@ -23,3 +23,9 @@ Route::Group(['prefix'=>'product'],function(){
     Route::apiResource('/{product}/Review','ReviewController');
 });
 
+Route::post('/login',"StudentController@login")->name("login");
+
+Route::Resource('/student','StudentController');
+Route::Group(['prefix'=>'student'],function(){
+     Route::apiResource('/{student}/Score','Student_Score');
+});

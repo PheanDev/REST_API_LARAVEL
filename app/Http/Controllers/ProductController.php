@@ -52,7 +52,7 @@ class ProductController extends Controller
         $product->save();
 
         return response([
-            'data'=>new ProductResource($product)
+            'data'=>new StudentResource($product)
         ],201);
     }
 
