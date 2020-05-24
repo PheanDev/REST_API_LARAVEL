@@ -100,26 +100,17 @@ class StudentController extends Controller
         //
     }
     public $successStatus = 200;
-/** 
-     * login api 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
     public function login(){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
-            $success =  $user->createToken('MyApp')-> accessToken; 
+            $success =  $user->createToken('Phean@TokenTestingInTheAirDude')-> accessToken; 
             return response()->json(['status'=>true,'Token' => $success], $this-> successStatus); 
         } 
         else{ 
             return response()->json(['status'=>false,'Token'=>'Unauthorised'], 401); 
+            
         } 
     }
-/** 
-     * Register api 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
     public function register(Request $request) 
     { 
         $validator = Validator::make($request->all(), [ 
