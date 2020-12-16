@@ -12,7 +12,7 @@ class StudentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except('login','index','show','register');
+        $this->middleware('auth:api')->except('login', 'index', 'show', 'register');
     }
     /**
      * Display a listing of the resource.
@@ -42,18 +42,17 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        $stu=new Student();
-        $stu->name=$request->name;
-        $stu->gender=$request->gender;
-        $stu->age=$request->age;
-        $stu->class=$request->class;
-        $stu->year=$request->year;
-
+        $stu = new Student();
+        $stu->name = $request->name;
+        $stu->gender = $request->gender;
+        $stu->age = $request->age;
+        $stu->class = $request->class;
+        $stu->year = $request->year;
         $stu->save();
 
         return response([
-            'data'=>new StudentResource($stu)
-        ],201);
+            'data' => new StudentResource($stu)
+        ], 201);
     }
 
     /**
@@ -100,43 +99,42 @@ class StudentController extends Controller
         //
     }
     public $successStatus = 200;
-    public function login(){ 
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user = Auth::user(); 
-            $success =  $user->createToken('Phean@TokenTestingInTheAirDude')-> accessToken; 
-            return response()->json(['status'=>true,'Token' => $success], $this-> successStatus); 
-        } 
-        else{ 
-            return response()->json(['status'=>false,'Token'=>'Unauthorised'], 401); 
-            
-        } 
-    }
-    public function register(Request $request) 
-    { 
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required', 
-            'email' => 'required|email', 
-            'password' => 'required', 
-            'c_password' => 'required|same:password', 
-        ]);
-if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
+    public function login()
+    {
+        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+            $user = Auth::user();
+            $success =  $user->createToken('Phean@TokenTestingInTheAirDude')->accessToken;
+            return response()->json(['status' => true, 'Token' => $success], $this->successStatus);
+        } else {
+            return response()->json(['status' => false, 'Token' => 'Unauthorised'], 401);
         }
-$input = $request->all(); 
-        $input['password'] = bcrypt($input['password']); 
-        $user = User::create($input); 
-        $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-        $success['name'] =  $user->name;
-return response()->json(['success'=>$success], $this-> successStatus); 
     }
-/** 
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
+        $success['name'] =  $user->name;
+        return response()->json(['success' => $success], $this->successStatus);
+    }
+    /** 
      * details api 
      * 
      * @return \Illuminate\Http\Response 
-     */ 
-    public function details() 
-    { 
-        $user = Auth::user(); 
-        return response()->json(['success' => $user], $this-> successStatus); 
-    } 
+     */
+    public function details()
+    {
+        $user = Auth::user();
+        return response()->json(['success' => $user], $this->successStatus);
+    }
 }

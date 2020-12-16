@@ -29,5 +29,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+        'client_id' => env('1005722247481-svoplo4us0d2nd1mi3tk3dhepk3b14it.apps.googleusercontent.com'),
+        'client_secret' => env('Ngy4-qzruLY13Fzdbu51Ct6e'),
+        'redirect' => env('http://learnl52.hd/auth/google/callback'),
+    ],
 
 ];

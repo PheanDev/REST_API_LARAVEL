@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/', function (Request $request) {
     return $request->user();
 });
 
@@ -29,3 +29,11 @@ Route::Resource('/student','StudentController');
 Route::Group(['prefix'=>'student'],function(){
      Route::apiResource('/{student}/Score','Student_Score');
 });
+
+
+
+Route::get('/res-search','PostController@search')->name('Search');
+
+//google api
+Route::get('auth/google', 'Google\GoogleController@redirectToGoogle');
+Route::get('auth/google/callback', 'Google\GoogleController@handleGoogleCallback');
