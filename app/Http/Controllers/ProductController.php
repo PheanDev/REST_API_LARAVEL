@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Product\ProductResource as ProductResource;
 use App\Http\Requests\ProductRequest;
 
-
-class ProductController extends Controller
+class ProductController extends BaseResponse
 {
     public function __construct()
     {
@@ -21,8 +20,10 @@ class ProductController extends Controller
      */
     public function index(Product $product)
     {
-       return ProductResource::collection(Product::all());
+         return parent::responseSuccess(ProductResource::collection((Product::all())));
+        // return parent::responseFail($this->code_fail,$this->message_fail,null);
     }
+
 
     /**
      * Show the form for creating a new resource.
